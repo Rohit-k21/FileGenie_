@@ -81,7 +81,7 @@ CHROMA_PERSIST_DIRECTORY = "your/path"
 ### 4. Frontend Setup
 
 cd frontend
-npm install
+npm install -i
 ng serve
 ```
 
