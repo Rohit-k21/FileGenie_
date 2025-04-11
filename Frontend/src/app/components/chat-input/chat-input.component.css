@@ -1,0 +1,4 @@
+/* Remove textarea focus ring */
+textarea:focus {
+  box-shadow: none;
+}

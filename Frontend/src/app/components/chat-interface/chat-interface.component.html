@@ -1,0 +1,74 @@
+<div class="grid h-[calc(100vh-6.2rem)] grid-cols-1 gap-6 md:grid-cols-3 lg:grid-cols-4">
+  <!-- Sidebar -->
+  <div class="flex flex-col space-y-6 md:col-span-1">
+    <app-file-upload (uploadComplete)="handleUploadComplete($event)"></app-file-upload>
+    <app-collection-selector
+      *ngIf="collections.length > 0"
+
+      [selectedCollection]="selectedCollection"
+      (select)="selectedCollection = $event"
+    ></app-collection-selector>
+  </div>
+
+  <!-- Chat Area -->
+  <div class="flex flex-col rounded-lg border bg-gray-100/20 md:col-span-2 lg:col-span-3 dark:bg-gray-800/20">
+    <div class="flex items-center justify-between gap-2 border-b p-4">
+      <div class="flex items-center gap-2">
+        <svg class="h-5 w-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"></path>
+        </svg>
+        <h2 class="font-medium text-gray-900 dark:text-white">
+          {{ selectedCollection ? 'Chat with ' + selectedCollection : 'Upload a document to start chatting' }}
+        </h2>
+      </div>
+      <button
+        (click)="toggleHistorySidebar()"
+        class="p-2 text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white"
+        title="View history"
+      >
+        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Messages Area -->
+    <div class="flex-1 overflow-y-auto">
+      <div class="flex flex-col divide-y">
+        <ng-container *ngIf="messages.length > 0; else noMessages">
+          <app-chat-message *ngFor="let message of messages" [message]="message"></app-chat-message>
+        </ng-container>
+        <ng-template #noMessages>
+          <div class="flex flex-1 flex-col items-center justify-center p-12 text-center">
+            <div class="rounded-full bg-gray-200/50 p-4 dark:bg-gray-700/50">
+              <svg class="h-8 w-8 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"></path>
+              </svg>
+            </div>
+            <h3 class="mt-4 text-lg font-medium text-gray-900 dark:text-white">No messages yet</h3>
+            <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">
+              Upload a document and start asking questions to get insights from your files.
+            </p>
+          </div>
+        </ng-template>
+        <div #messagesEndRef></div>
+      </div>
+    </div>
+
+    <!-- Input Area -->
+    <div class="border-t p-4">
+      <app-chat-input
+        (send)="handleSendMessage($event)"
+        [disabled]="!selectedCollection || isProcessing"
+        [placeholder]="selectedCollection ? 'Ask a question about your document...' : 'Please select a document collection first...'"
+      ></app-chat-input>
+    </div>
+  </div>
+</div>
+
+<!-- History Sidebar -->
+<app-history-sidebar
+  [open]="isHistorySidebarOpen"
+  (close)="isHistorySidebarOpen = false"
+  [collections]="collections"
+></app-history-sidebar>

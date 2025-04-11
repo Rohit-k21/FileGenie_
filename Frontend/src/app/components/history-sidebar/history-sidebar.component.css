@@ -1,0 +1,13 @@
+/* Ensure the sidebar stays above the overlay */
+:host {
+  z-index: 50;
+}
+
+/* Smooth date input styling */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(0.5); /* Gray icon in light mode */
+}
+
+.dark input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(0.8); /* Lighter icon in dark mode */
+}

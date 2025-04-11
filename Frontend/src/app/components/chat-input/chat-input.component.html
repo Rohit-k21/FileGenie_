@@ -1,0 +1,19 @@
+<div class="flex items-end gap-2 rounded-lg border bg-gray-100/50 p-3 backdrop-blur-sm dark:bg-gray-800/50">
+  <textarea
+    [(ngModel)]="message"
+    (keydown)="handleKeyDown($event)"
+    [placeholder]="placeholder"
+    [disabled]="disabled"
+    class="min-h-[60px] resize-none border-0 bg-transparent p-2 w-full focus:outline-none dark:text-white"
+  ></textarea>
+  <button
+    (click)="handleSend()"
+    [disabled]="!message.trim() || disabled"
+    class="h-10 w-10 shrink-0 bg-blue-600 text-white rounded-md hover:bg-blue-700 flex items-center justify-center"
+  >
+    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+    </svg>
+    <span class="sr-only">Send message</span>
+  </button>
+</div>

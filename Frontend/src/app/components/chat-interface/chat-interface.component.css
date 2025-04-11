@@ -1,0 +1,5 @@
+/* Ensure scroll area takes full height */
+:host {
+  display: block;
+  height: 100%;
+}

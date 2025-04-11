@@ -1,0 +1,23 @@
+<div class="w-full space-y-4 rounded-lg border border-gray-200/50 bg-gray-100/50 p-6 backdrop-blur-sm dark:bg-gray-800/50 dark:border-gray-700/50">
+  <div class="flex items-center gap-2 mb-2">
+    <i class="pi pi-folder-open h-4 w-4 text-primary"></i>
+    <label for="collection-select" class="text-sm font-medium">Select Document Collection</label>
+  </div>
+
+  <p-dropdown
+    [(ngModel)]="selectedCollection"
+    (onChange)="onCollectionChange($event.value)"
+    [options]="dropdownOptions"
+    placeholder="Choose a collection"
+    styleClass="w-[97%] mx-auto bg-card/50 backdrop-blur-sm border border-gray-300/50 dark:border-gray-600/50"
+    [showClear]="true"
+    [disabled]="!collections.length && !error"
+  ></p-dropdown>
+
+  <div *ngIf="error" class="mt-2 flex items-center gap-1 text-sm text-red-600 dark:text-red-400">
+    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M12 4a8 8 0 100 16 8 8 0 000-16z"></path>
+    </svg>
+    <span>{{ error }}</span>
+  </div>
+</div>

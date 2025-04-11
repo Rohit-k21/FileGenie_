@@ -1,0 +1,4 @@
+/* Ensure prose styles are applied */
+.prose {
+  color: inherit;
+}

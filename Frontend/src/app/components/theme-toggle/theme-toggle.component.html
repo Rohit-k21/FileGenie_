@@ -1,0 +1,9 @@
+<p-button
+  styleClass="p-button-ghost p-button-icon-only text-foreground/80 hover:text-foreground"
+  [title]="(themeService.theme$ | async) === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'"
+  (click)="toggleTheme()"
+>
+  <i class="pi pi-sun h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0"></i>
+  <i class="pi pi-moon absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100"></i>
+  <span class="sr-only">Toggle theme</span>
+</p-button>

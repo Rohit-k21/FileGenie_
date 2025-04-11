@@ -1,0 +1,95 @@
+<div
+  class="fixed top-0 right-0 h-screen w-[400px] sm:max-w-[425px] bg-white dark:bg-gray-900  border-gray-300 dark:border-gray-600 shadow-lg transform transition-transform duration-300 ease-in-out z-50 border-l-2"
+  [ngClass]="{'translate-x-0': open, 'translate-x-full': !open}"
+>
+  <!-- Header -->
+  <div class="flex items-center justify-between border-b border-gray-300 dark:border-gray-600 px-4 py-4">
+    <h2 class="flex items-center gap-2 text-lg font-semibold text-gray-900 dark:text-white">
+      <svg class="h-5 w-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+      </svg>
+      Query History
+    </h2>
+    <button (click)="close.emit()" class="p-2 text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white">
+      <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Filters -->
+  <div class="p-4 space-y-4">
+    <!-- Search -->
+    <div class="flex items-center gap-2">
+      <div class="relative flex-1">
+        <svg class="absolute left-2 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+        </svg>
+        <input
+          [(ngModel)]="searchTerm"
+          placeholder="Search queries..."
+          class="pl-8 pr-4 w-full h-9 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-white"
+        />
+      </div>
+      <button
+        (click)="handleClearHistory()"
+        class="p-2 text-red-600 hover:bg-red-100 rounded-md dark:text-red-400 dark:hover:bg-red-900"
+        title="Clear all history"
+      >
+        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5-4h4m-4 0h4M3 7h18"></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Date and Collection Filters -->
+    <div class="flex items-center gap-2">
+      <div class="relative flex-1">
+        <input
+          type="date"
+          [(ngModel)]="date"
+          (change)="handleDateInput($event)"
+          placeholder="Filter by date"
+          class="w-full h-9 border border-gray-300 rounded-md bg-white/50 dark:bg-gray-800/50 dark:border-gray-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+      <select
+        [(ngModel)]="selectedCollection"
+        (change)="handleCollectionSelect($event)"
+        class="flex-1 h-9 border border-gray-300 rounded-md bg-white/50 dark:bg-gray-800/50 dark:border-gray-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+      >
+        <option *ngFor="let option of dropdownOptions" [value]="option.value">{{ option.label }}</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- History List -->
+  <div class="border-t border-gray-300 dark:border-gray-600 pt-4 px-4">
+    <div class="h-[calc(100vh-207px)] overflow-y-auto">
+      <div *ngIf="filteredBySearch.length > 0; else noHistory" class="space-y-4">
+        <div *ngFor="let item of filteredBySearch" class="border border-gray-200 rounded-md p-3 hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-800 transition-colors">
+          <div class="flex justify-between items-start mb-1">
+            <span class="font-medium text-sm text-gray-900 dark:text-white">{{ item.collection }}</span>
+            <span class="text-xs text-gray-500 dark:text-gray-400">{{ formatDate(item.timestamp) }}</span>
+          </div>
+          <p class="text-sm text-gray-700 dark:text-gray-300 line-clamp-2">{{ item.message }}</p>
+        </div>
+      </div>
+      <ng-template #noHistory>
+        <div class="flex flex-col items-center justify-center h-40 text-center">
+          <svg class="h-10 w-10 text-gray-400 dark:text-gray-500 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+          <p class="text-gray-500 dark:text-gray-400">No history found</p>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>
+
+<!-- Overlay for closing when clicking outside -->
+<div
+  *ngIf="open"
+  class="fixed inset-0 w-screen h-screen top-0 left-0 right-0 bottom-0 bg-black/20 z-40"
+  (click)="close.emit()"
+></div>

@@ -1,0 +1,55 @@
+<div class="min-h-[calc(100vh-4rem)] flex flex-col">
+  <div class="flex-1 flex flex-col items-center justify-center text-center p-6 md:p-10">
+    <div class="w-full max-w-4xl mx-auto space-y-8 animate-fade-in">
+      <!-- Badge -->
+      <div class="space-y-4">
+        <div class="inline-block px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-medium mb-2 animate-slide-in dark:bg-blue-900 dark:text-blue-200">
+          Document Intelligence Platform
+        </div>
+        <!-- Heading -->
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-gray-900 dark:text-white">
+          Interact with your documents<br class="hidden md:block" /> like never before
+        </h1>
+        <!-- Description -->
+        <p class="text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+          FileGenie transforms how you work with documents, enabling natural conversations
+          with your PDF files and document collections.
+        </p>
+      </div>
+
+      <!-- Buttons -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+        <a routerLink="/signup">
+          <button class="px-6 py-3 bg-blue-600 text-white rounded-md font-medium hover:bg-blue-700 flex items-center gap-2">
+            Get started
+            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+            </svg>
+          </button>
+        </a>
+        <a routerLink="/dashboard">
+          <button class="px-6 py-3 border border-gray-300 text-gray-700 rounded-md font-medium hover:bg-gray-100 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700">
+            Try Dashboard
+          </button>
+        </a>
+        <a routerLink="/login">
+          <button class="px-6 py-3 border border-gray-300 text-gray-700 rounded-md font-medium hover:bg-gray-100 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700">
+            Log in
+          </button>
+        </a>
+      </div>
+
+      <!-- Preview Box -->
+      <div class="pt-12 pb-8">
+        <div class="relative mx-auto rounded-xl overflow-hidden shadow-2xl border border-gray-200/30 w-full max-w-3xl aspect-video bg-gray-100/50 backdrop-blur-sm dark:bg-gray-800/50 dark:border-gray-700/30">
+          <div class="absolute inset-0 flex items-center justify-center text-gray-500 dark:text-gray-400">
+            <!-- <p class="text-sm">Document interface preview</p> -->
+            <img src="/assets/chat.png"
+            alt="Document Interface Preview"
+            class="w-full h-full object-cover" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
